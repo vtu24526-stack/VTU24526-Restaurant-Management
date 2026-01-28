@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Admin Dashboard</title>
+    <style>
+        /* ===================== Global Styles ===================== */
+        * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI",sans-serif; scroll-behavior: smooth;}
+        body { background: linear-gradient(120deg,#f6d365,#fda085); min-height:100vh;}
+
+        /* ===================== Navbar ===================== */
+        .navbar { background:#2c2c54; color:white; padding:15px 40px; display:flex; justify-content:space-between; align-items:center; position:fixed; width:100%; top:0; z-index:1000;}
+        .navbar h1{ font-size:22px; }
+        .navbar ul{ list-style:none; display:flex; gap:20px;}
+        .navbar a{ color:white; text-decoration:none; padding:8px 14px; border-radius:8px; transition:background 0.3s;}
+        .navbar a:hover, .navbar a.active{ background:#706fd3;}
+
+        /* ===================== Sections ===================== */
+        section{ padding:100px 50px 50px 50px; min-height:100vh; }
+        section h2{ margin-bottom:30px; color:#2c2c54; font-size:28px; }
+
+        /* ===================== Dashboard Cards ===================== */
+        .cards{ display:flex; gap:25px; flex-wrap:wrap; }
+        .card{ width:220px; padding:25px; border-radius:18px; color:white; box-shadow:0 10px 25px rgba(0,0,0,0.2); transition:transform 0.3s ease; }
+        .card:hover{ transform:translateY(-6px);}
+        .card h3{ font-size:18px; margin-bottom:10px;}
+        .card p{ font-size:36px; font-weight:bold;}
+        .purple{ background:#706fd3; }
+        .green{ background:#2ecc71; }
+        .red{ background:#e74c3c; }
+
+        /* ===================== Admin Profile ===================== */
+        .profile-card{ background:white; max-width:500px; padding:30px; border-radius:18px; box-shadow:0 10px 25px rgba(0,0,0,0.2); line-height:2; font-size:16px;}
+
+        /* ===================== Food Table ===================== */
+        table{ width:100%; max-width:1000px; background:white; border-collapse:collapse; border-radius:18px; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+        th{ background:#2c2c54; color:white; padding:15px; text-align:left;}
+        td{ padding:15px; text-align:left;}
+        tr:nth-child(even){ background:#f4f4f4; }
+
+        /* ===================== Badges ===================== */
+        .badge{ padding:6px 14px; border-radius:20px; color:white; font-size:14px; display:inline-block;}
+        .badge.green{ background:#2ecc71;}
+        .badge.red{ background:#e74c3c;}
+        .badge.purple{ background:#706fd3;}
+
+        /* ===================== Orders Status ===================== */
+        select.status{ padding:6px; border-radius:6px; font-weight:bold; border:none;}
+        select.status.placed{ background:#ffeaa7; }
+        select.status.preparing{ background:#74b9ff; }
+        select.status.delivered{ background:#55efc4; }
+        select.status.cancelled{ background:#ff7675; }
+
+        button.btn.update{ padding:6px 12px; border:none; background:#6c5ce7; color:white; border-radius:6px; cursor:pointer;}
+
+        /* ===================== Responsive ===================== */
+        @media(max-width:768px){
+            .navbar{ flex-direction:column; gap:10px; }
+            .navbar ul{ flex-wrap:wrap; justify-content:center; }
+            section{ padding:120px 20px 50px 20px;}
+            .cards{ justify-content:center;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <h1>🍽 RMS Admin</h1>
+    <ul>
+        <li><a href="#dashboard" class="active">Dashboard</a></li>
+        <li><a href="#admin">Admin Info</a></li>
+        <li><a href="#food">Food Items</a></li>
+        <li><a href="#orders">Orders</a></li>
+        <li><a href="#">Logout</a></li>
+    </ul>
+</nav>
+
+<!-- Dashboard Section -->
+<section id="dashboard">
+    <h2>Dashboard Overview</h2>
+    <div class="cards">
+        <div class="card purple">
+            <h3>Total Items</h3>
+            <p>4</p>
+        </div>
+        <div class="card green">
+            <h3>Available</h3>
+            <p>3</p>
+        </div>
+        <div class="card red">
+            <h3>Out of Stock</h3>
+            <p>1</p>
+        </div>
+    </div>
+</section>
+
+<!-- Admin Profile Section -->
+<section id="admin">
+    <h2>Admin Profile</h2>
+    <div class="profile-card">
+        <p><strong>Name:</strong> Restaurant Admin</p>
+        <p><strong>Email:</strong> admin@restaurant.com</p>
+        <p><strong>Role:</strong> System Administrator</p>
+        <p><strong>Last Login:</strong> 27 Jan 2026</p>
+    </div>
+</section>
+
+<!-- Food Items Section -->
+<section id="food">
+    <h2>Food Items Management</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Price (₹)</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Veg Burger</td>
+                <td>149</td>
+                <td><span class="badge green">Available</span></td>
+            </tr>
+            <tr>
+                <td>Chicken Biryani</td>
+                <td>349</td>
+                <td><span class="badge green">Available</span></td>
+            </tr>
+            <tr>
+                <td>Paneer Butter Masala</td>
+                <td>279</td>
+                <td><span class="badge red">Out of Stock</span></td>
+            </tr>
+            <tr>
+                <td>French Fries</td>
+                <td>129</td>
+                <td><span class="badge green">Available</span></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Customer Orders Section -->
+<section id="orders">
+    <h2>Customer Orders & Status</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Food Item</th>
+                <th>Qty</th>
+                <th>Total (₹)</th>
+                <th>Status</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#ORD201</td>
+                <td>Ananya</td>
+                <td>Veg Burger</td>
+                <td>2</td>
+                <td>298</td>
+                <td>
+                    <select class="status placed">
+                        <option>Placed</option>
+                        <option>Preparing</option>
+                        <option>Out for Delivery</option>
+                        <option>Delivered</option>
+                        <option>Cancelled</option>
+                    </select>
+                </td>
+                <td><button class="btn update">Update</button></td>
+            </tr>
+            <tr>
+                <td>#ORD202</td>
+                <td>Rahul</td>
+                <td>Chicken Biryani</td>
+                <td>1</td>
+                <td>349</td>
+                <td>
+                    <select class="status preparing">
+                        <option>Placed</option>
+                        <option selected>Preparing</option>
+                        <option>Out for Delivery</option>
+                        <option>Delivered</option>
+                        <option>Cancelled</option>
+                    </select>
+                </td>
+                <td><button class="btn update">Update</button></td>
+            </tr>
+            <tr>
+                <td>#ORD203</td>
+                <td>Priya</td>
+                <td>Paneer Butter Masala</td>
+                <td>1</td>
+                <td>279</td>
+                <td>
+                    <select class="status cancelled">
+                        <option>Placed</option>
+                        <option>Preparing</option>
+                        <option>Out for Delivery</option>
+                        <option>Delivered</option>
+                        <option selected>Cancelled</option>
+                    </select>
+                </td>
+                <td><button class="btn update">Update</button></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>
